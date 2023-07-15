@@ -61,7 +61,7 @@
             "default_mode": "rule",
             "external_controller": "0.0.0.0:9090",
             "external_ui": "/etc/sing-box/dashboard",
-            "secret": "8b806ad8-4a3a-4e34-9596-0b5f88b80225",
+            "secret": "Panel_Password",
             "store_selected": true
         }
     },
