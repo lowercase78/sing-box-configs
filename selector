@@ -1,0 +1,35 @@
+{
+    "outbounds": [
+        {
+            "interval": "1m0s",
+            "outbounds": [
+                "outbond1",
+                "outbond2",
+                "outbond3"
+            ],
+            "tag": "Best Latency",
+            "type": "urltest",
+            "url": "https://detectportal.firefox.com/success.txt"
+        },
+        {
+            "outbounds": [
+            "interval": "1m0s",
+            "outbounds": [
+                "outbond1",
+                "outbond2",
+                "outbond3"
+            ],
+            "tag": "Select Manually",
+            "type": "selector"
+        },
+        {
+#outbound1
+        },
+        {
+#outbound2
+        },
+        {
+#outbound3
+        }
+    ]
+}
