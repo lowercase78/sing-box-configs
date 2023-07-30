@@ -1,0 +1,560 @@
+{
+    "dns": {
+        "rules": [
+            {
+                "domain_suffix": [
+                    "ir",
+                    "ircf.space"
+                ],
+                "server": "dns-direct"
+            },
+            {
+                "disable_cache": true,
+                "domain_suffix": [
+                    "app-measurement.com",
+                    "crashlytics.com",
+                    "google-analytics.com",
+                    "appcenter.ms",
+                    "firebase.io"
+                ],
+                "geosite": "category-ads-all",
+                "server": "dns-block"
+            },
+            {
+                "disable_cache": true,
+                "domain_suffix": [
+                    ".arpa.",
+                    ".arpa"
+                ],
+                "server": "dns-block"
+            }
+        ],
+        "servers": [
+            {
+                "address": "https://1.1.1.1/dns-query",
+                "address_resolver": "dns-direct",
+                "tag": "dns-remote"
+            },
+            {
+                "address": "8.8.8.8",
+                "detour": "Direct",
+                "tag": "dns-direct"
+            },
+            {
+                "address": "rcode://success",
+                "tag": "dns-block"
+            }
+        ],
+        "strategy": "ipv4_only"
+    },
+    "experimental": {
+        "clash_api": {
+            "cache_file": "cache.db",
+            "default_mode": "rule",
+            "external_controller": "0.0.0.0:9090",
+            "external_ui": "dashboard",
+            "secret": "",
+            "store_selected": true
+        }
+    },
+    "inbounds": [
+        {
+            "domain_strategy": "prefer_ipv4",
+            "listen": "127.0.0.1",
+            "listen_port": 2080,
+            "sniff": true,
+            "tag": "mixed-in",
+            "type": "mixed"
+        }
+    ],
+    "log": {
+        "level": "info"
+    },
+    "outbounds": [
+        {
+            "outbounds": [
+                "Best Latency",
+                "Manually Select",
+                "FreeNode Best Latency",
+                "FreeNode Manually Select",
+                "CloudFlare Edge",
+                "OverTlS",
+                "WARP"
+            ],
+            "tag": "Selector",
+            "type": "selector"
+        },
+        {
+            "interval": "1m0s",
+            "outbounds": [
+                "NS-AST",
+                "MainIP",
+                "FIP1",
+                "FIP2",
+                "FIP3"
+            ],
+            "tag": "Best Latency",
+            "type": "urltest",
+            "url": "https://detectportal.firefox.com/success.txt"
+        },
+        {
+            "outbounds": [
+                "NS-AST",
+                "MainIP",
+                "FIP1",
+                "FIP2",
+                "FIP3"
+            ],
+            "tag": "Manually Select",
+            "type": "selector"
+        },
+        {
+            "alter_id": 0,
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "mtn.ircf.space",
+            "server_port": 443,
+            "tag": "NS-AST",
+            "tls": {
+                "alpn": [
+                    "http/1.1"
+                ],
+                "enabled": true,
+                "server_name": "example.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "example.com"
+                },
+                "path": "/PATH",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0965cac9"
+        },
+        {
+            "alter_id": 0,
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "config0.exaple.com",
+            "server_port": 443,
+            "tag": "MainIP",
+            "tls": {
+                "alpn": [
+                    "h2",
+                    "http/1.1"
+                ],
+                "enabled": true,
+                "server_name": "example.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "example.com"
+                },
+                "path": "/PATH",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0965cac9"
+        },
+        {
+            "alter_id": 0,
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "config1.exaple.com",
+            "server_port": 443,
+            "tag": "FIP1",
+            "tls": {
+                "alpn": [
+                    "h2",
+                    "http/1.1"
+                ],
+                "enabled": true,
+                "server_name": "example.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "example.com"
+                },
+                "path": "/PATH",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0965cac9"
+        },
+        {
+            "alter_id": 0,
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "config2.exaple.com",
+            "server_port": 443,
+            "tag": "FIP2",
+            "tls": {
+                "alpn": [
+                    "h2",
+                    "http/1.1"
+                ],
+                "enabled": true,
+                "server_name": "example.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "example.com"
+                },
+                "path": "/PATH",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0965cac9"
+        },
+        {
+            "alter_id": 0,
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "config3.exaple.com",
+            "server_port": 443,
+            "tag": "FIP3",
+            "tls": {
+                "alpn": [
+                    "h2",
+                    "http/1.1"
+                ],
+                "enabled": true,
+                "server_name": "example.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "example.com"
+                },
+                "path": "/PATH",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0965cac9"
+        },
+        {
+            "domain_strategy": "prefer_ipv4",
+            "server": "127.0.0.1",
+            "server_port": 1080,
+            "tag": "OverTlS",
+            "type": "socks"
+        },
+        {
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "flow": "",
+            "packet_encoding": "",
+            "server": "p30download.exaple.com",
+            "server_port": 443,
+            "tag": "CloudFlare Edge",
+            "tls": {
+                "alpn": [
+                    "http/1.1"
+                ],
+                "enabled": true,
+                "server_name": "example.org",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "example.org"
+                },
+                "path": "/vless/4eb3fa15",
+                "type": "ws"
+            },
+            "type": "vless",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0955cac9"
+        },
+        {
+            "interval": "1m0s",
+            "outbounds": [
+                "Dusseldorf",
+                "Lille",
+                "Amsterdam",
+                "Kansas",
+                "LosAngeles"
+            ],
+            "tag": "FreeNode Best Latency",
+            "type": "urltest",
+            "url": "https://detectportal.firefox.com/success.txt"
+        },
+        {
+            "outbounds": [
+                "Dusseldorf",
+                "Lille",
+                "Amsterdam",
+                "Kansas",
+                "LosAngeles"
+            ],
+            "tag": "FreeNode Manually Select",
+            "type": "selector"
+        },
+        {
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "mtn.ircf.space",
+            "server_port": 443,
+            "tag": "Dusseldorf",
+            "tls": {
+                "alpn": "h2,http/1.1",
+                "enabled": true,
+                "server_name": "Dusseldorf.kotick.site",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "360"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "Dusseldorf.kotick.site"
+                },
+                "path": "/speedtest",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0955cac9"
+        },
+        {
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "mtn.ircf.space",
+            "server_port": 443,
+            "tag": "Lille",
+            "tls": {
+                "alpn": "h2,http/1.1",
+                "enabled": true,
+                "server_name": "Lille.kotick.site",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "360"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "Lille.kotick.site"
+                },
+                "path": "/speedtest",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0955cac9"
+        },
+        {
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "mtn.ircf.space",
+            "server_port": 443,
+            "tag": "Amsterdam",
+            "tls": {
+                "alpn": "h2,http/1.1",
+                "enabled": true,
+                "server_name": "Amsterdam.kotick.site",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "360"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "Amsterdam.kotick.site"
+                },
+                "path": "/speedtest",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0955cac9"
+        },
+        {
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "mtn.ircf.space",
+            "server_port": 443,
+            "tag": "Kansas",
+            "tls": {
+                "alpn": "h2,http/1.1",
+                "enabled": true,
+                "server_name": "Kansas.kotick.site",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "360"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "Kansas.kotick.site"
+                },
+                "path": "/speedtest",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0955cac9"
+        },
+        {
+            "detour": "Upstream-Out",
+            "domain_strategy": "prefer_ipv4",
+            "security": "auto",
+            "server": "mtn.ircf.space",
+            "server_port": 443,
+            "tag": "LosAngeles",
+            "tls": {
+                "alpn": "h2,http/1.1",
+                "enabled": true,
+                "server_name": "LosAngeles.kotick.site",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "360"
+                }
+            },
+            "transport": {
+                "headers": {
+                    "Host": "LosAngeles.kotick.site"
+                },
+                "path": "/speedtest",
+                "type": "ws"
+            },
+            "type": "vmess",
+            "uuid": "8741f4c4-a99f-42c4-ad81-243b0955cac9"
+        },
+        {
+            "outbounds": [
+                "Direct",
+                "PowerTunnel",
+                "FTT",
+                "WARP"
+            ],
+            "tag": "Upstream-Out",
+            "type": "selector"
+        },
+        {
+            "tag": "Direct",
+            "type": "direct"
+        },
+        {
+            "server": "127.0.0.1",
+            "server_port": 8085,
+            "tag": "PowerTunnel",
+            "type": "http"
+        },
+        {
+            "override_address": "127.0.0.1",
+            "override_port": 1090,
+            "tag": "FTT",
+            "type": "direct"
+        },
+        {
+            "local_address": "172.16.0.2/32",
+            "mtu": 1280,
+            "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+            "pre_shared_key": "",
+            "private_key": "bmXOC+F5FxEMF9dyiK2H5/2SUtzH0JuVo51h2wPfgyo=",
+            "server": "188.114.98.224",
+            "server_port": 500,
+            "tag": "WARP",
+            "type": "wireguard"
+        },
+        {
+            "tag": "bypass",
+            "type": "direct"
+        },
+        {
+            "tag": "Block",
+            "type": "block"
+        },
+        {
+            "tag": "dns-out",
+            "type": "dns"
+        }
+    ],
+    "route": {
+        "auto_detect_interface": true,
+        "geoip": {
+            "download_detour": "WARP",
+            "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db",
+            "path": "geoip.db"
+        },
+        "geosite": {
+            "download_detour": "WARP",
+            "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db",
+            "path": "geosite.db"
+        },
+        "rules": [
+            {
+                "outbound": "dns-out",
+                "port": 53
+            },
+            {
+                "inbound": "dns-in",
+                "outbound": "dns-out"
+            },
+            {
+                "geoip": "private",
+                "outbound": "bypass"
+            },
+            {
+                "geosite": "category-ads-all",
+                "outbound": "Block"
+            },
+            {
+                "domain_suffix": [
+                    "appcenter.ms",
+                    "app-measurement.com",
+                    "firebase.io",
+                    "crashlytics.com",
+                    "google-analytics.com"
+                ],
+                "outbound": "Block"
+            },
+            {
+                "geoip": "ir",
+                "outbound": "bypass"
+            },
+            {
+                "domain_suffix": "ir",
+                "outbound": "bypass"
+            },
+            {
+                "ip_cidr": [
+                    "224.0.0.0/3",
+                    "ff00::/8"
+                ],
+                "outbound": "Block",
+                "source_ip_cidr": [
+                    "224.0.0.0/3",
+                    "ff00::/8"
+                ]
+            }
+        ]
+    }
+}
