@@ -1,0 +1,280 @@
+{
+    "dns": {
+        "disable_cache": false,
+        "disable_expire": false,
+        "final": "dns-remote",
+        "rules": [
+            {
+                "domain_suffix": [
+                    "ir",
+                    "firefox.com"
+                ],
+                "server": "dns-direct"
+            },
+            {
+                "disable_cache": true,
+                "domain_suffix": [
+                    "app-measurement.com",
+                    "crashlytics.com",
+                    "google-analytics.com",
+                    "appcenter.ms",
+                    "firebase.io"
+                ],
+                "geosite": "category-ads-all",
+                "server": "dns-block"
+            },
+            {
+                "disable_cache": true,
+                "domain_suffix": [
+                    ".arpa.",
+                    ".arpa"
+                ],
+                "server": "dns-block"
+            }
+        ],
+        "servers": [
+            {
+                "address": "https://1.1.1.1/dns-query",
+                "address_resolver": "dns-direct",
+                "address_strategy": "prefer_ipv4",
+                "strategy": "ipv4_only",
+                "tag": "dns-remote"
+            },
+            {
+                "address": "local",
+                "detour": "Direct",
+                "tag": "dns-direct"
+            },
+            {
+                "address": "rcode://success",
+                "tag": "dns-block"
+            }
+        ],
+        "strategy": "ipv4_only"
+    },
+    "experimental": {
+        "clash_api": {
+            "cache_file": "cache.db",
+            "default_mode": "rule",
+            "external_controller": "127.0.0.1:9090",
+            "external_ui": "dashboard",
+            "secret": "",
+            "store_selected": true
+        }
+    },
+    "inbounds": [
+        {
+            "domain_strategy": "prefer_ipv4",
+            "listen": "::",
+            "listen_port": 2080,
+            "sniff": true,
+            "tag": "mixed-in",
+            "type": "mixed"
+        }
+    ],
+    "log": {
+        "level": "info"
+    },
+    "outbounds": [
+        {
+            "outbounds": [
+                "Best Latency",
+                "SSH1",
+                "SSH2",
+                "SSH3",
+                "SSH4",
+                "SSH5",
+                "SSH6",
+                "SSH7",
+                "SSH8",
+                "SSH9",
+                "SSH10"
+            ],
+            "tag": "Select Manually",
+            "type": "selector"
+        },
+        {
+            "interval": "1m0s",
+            "outbounds": [
+                "SSH1",
+                "SSH2",
+                "SSH3",
+                "SSH4",
+                "SSH5",
+                "SSH6",
+                "SSH7",
+                "SSH8",
+                "SSH9",
+                "SSH10"
+            ],
+            "tag": "Best Latency",
+            "type": "urltest",
+            "url": "https://detectportal.firefox.com/success.txt"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch1.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH1",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch2.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH2",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch3.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH3",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch4.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH4",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch5.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH5",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch6.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH6",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch7.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH7",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch8.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH8",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch9.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH9",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "domain_strategy": "",
+            "password": "freeforiran",
+            "server": "ch10.freessh.net",
+            "server_port": 2222,
+            "tag": "SSH10",
+            "type": "ssh",
+            "user": "useename"
+        },
+        {
+            "tag": "Direct",
+            "type": "direct"
+        },
+        {
+            "tag": "Bypass",
+            "type": "direct"
+        },
+        {
+            "tag": "Block",
+            "type": "block"
+        },
+        {
+            "tag": "DNS-Out",
+            "type": "dns"
+        }
+    ],
+    "route": {
+        "auto_detect_interface": true,
+        "final": "Select Manually",
+        "geoip": {
+            "download_detour": "Direct",
+            "path": "geoip.db"
+        },
+        "geosite": {
+            "download_detour": "Direct",
+            "path": "geosite.db"
+        },
+        "rules": [
+            {
+                "outbound": "DNS-Out",
+                "port": 53
+            },
+            {
+                "inbound": "dns-in",
+                "outbound": "DNS-Out"
+            },
+            {
+                "geoip": "private",
+                "outbound": "Bypass"
+            },
+            {
+                "geosite": "category-ads-all",
+                "outbound": "Block"
+            },
+            {
+                "domain_suffix": [
+                    "appcenter.ms",
+                    "app-measurement.com",
+                    "firebase.io",
+                    "crashlytics.com",
+                    "google-analytics.com"
+                ],
+                "outbound": "Block"
+            },
+            {
+                "geoip": "ir",
+                "outbound": "Bypass"
+            },
+            {
+                "domain_suffix": "ir",
+                "outbound": "Bypass"
+            },
+            {
+                "ip_cidr": [
+                    "224.0.0.0/3",
+                    "ff00::/8"
+                ],
+                "outbound": "Block",
+                "source_ip_cidr": [
+                    "224.0.0.0/3",
+                    "ff00::/8"
+                ]
+            }
+        ]
+    }
+}
