@@ -1,49 +1,49 @@
 {
-  "log": {
-    "level": "info",
-    "timestamp": true
-  },
-  "dns": {
-    "servers": [
-      {
-        "tag": "direct-dns",
-        "address": "8.8.8.8",
-        "detour": "direct"
-      }
+    "dns": {
+        "final": "direct-dns",
+        "servers": [
+            {
+                "address": "8.8.8.8",
+                "detour": "direct",
+                "tag": "direct-dns"
+            }
+        ],
+        "strategy": "ipv4_only"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "listen_port": 2088,
+            "type": "socks"
+        }
     ],
-    "final": "direct-dns",
-    "strategy": "ipv4_only"
-  },
-  "inbounds": [
-    {
-      "type": "socks",
-      "listen": "127.0.0.1",
-      "listen_port": 2088
+    "log": {
+        "level": "info",
+        "timestamp": true
+    },
+    "outbounds": [
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "block",
+            "type": "block"
+        },
+        {
+            "tag": "dns-out",
+            "type": "dns"
+        }
+    ],
+    "route": {
+        "final": "direct",
+        "geoip": {
+            "download_detour": "direct",
+            "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db"
+        },
+        "geosite": {
+            "download_detour": "direct",
+            "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geosite.db"
+        }
     }
-  ],
-  "outbounds": [
-    {
-      "type": "direct",
-      "tag": "direct"
-    },
-    {
-      "type": "block",
-      "tag": "block"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
-    }
-  ],
-  "route": {
-    "geoip": {
-      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geoip.db",
-      "download_detour": "direct"
-    },
-    "geosite": {
-      "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geosite.db",
-      "download_detour": "direct"
-    },
-    "final": "direct",
-  }
 }
