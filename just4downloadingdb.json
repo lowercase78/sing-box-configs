@@ -29,13 +29,10 @@
         {
             "tag": "block",
             "type": "block"
-        },
-        {
-            "tag": "dns-out",
-            "type": "dns"
         }
     ],
     "route": {
+        "auto_detect_interface": true,
         "final": "direct",
         "geoip": {
             "download_detour": "direct",
@@ -44,6 +41,22 @@
         "geosite": {
             "download_detour": "direct",
             "download_url": "https://github.com/malikshi/sing-box-geo/releases/latest/download/geosite.db"
-        }
+        },
+        "rules": [
+            {
+                "geosite": [
+                    "rule-ads",
+                    "oisd-full",
+                    "rule-malicious"
+                ],
+                "outbound": "block"
+            },
+            {
+                "geoip": [
+                    "ir"
+                ],
+                "outbound": "direct"
+            }
+        ]
     }
 }
