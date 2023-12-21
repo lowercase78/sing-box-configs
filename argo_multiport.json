@@ -1,0 +1,371 @@
+{
+  "log": {
+    "level": "warn",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-remote",
+        "address": "tcp://8.8.8.8",
+        "address_resolver": "dns-direct",
+        "strategy": "prefer_ipv4"
+      },
+      {
+        "tag": "dns-direct",
+        "address": "8.8.8.8",
+        "address_resolver": "dns-local",
+        "strategy": "prefer_ipv4",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-local",
+        "address": "local",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "domain": [
+          "discord.com"
+        ],
+        "server": "dns-direct"
+      },
+      {
+        "disable_cache": true,
+        "geosite": [
+          "category-ads-all"
+        ],
+        "server": "dns-block"
+      },
+      {
+        "disable_cache": true,
+        "domain_suffix": [
+          "appcenter.ms",
+          "app-measurement.com",
+          "firebase.io",
+          "crashlytics.com",
+          "google-analytics.com"
+        ],
+        "server": "dns-block"
+      },
+      {
+        "domain_suffix": ".ir",
+        "server": "dns-direct"
+      }
+    ],
+    "independent_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "mtu": 9000,
+      "inet4_address": "172.19.0.1/28",
+      "auto_route": true,
+      "strict_route": true,
+      "endpoint_independent_nat": true,
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "direct",
+      "tag": "dns-in",
+      "listen": "127.0.0.1",
+      "listen_port": 6450,
+      "override_address": "8.8.8.8",
+      "override_port": 53
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "select",
+      "outbounds": [
+        "auto",
+        "P443",
+        "P2053",
+        "P2083",
+        "P2087",
+        "P2096",
+        "P8443"
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "urltest",
+      "tag": "auto",
+      "outbounds": [
+        "P443",
+        "P2053",
+        "P2083",
+        "P2087",
+        "P2096",
+        "k8443"
+      ],
+      "url": "https://detectportal.firefox.com/success.txt",
+      "interval": "5m0s"
+    },
+    {
+      "type": "vless",
+      "tag": "P443",
+      "server": "discord.com",
+      "server_port": 443,
+      "uuid": "یوزر آی دی را جایگزین کنید",
+      "tls": {
+        "enabled": true,
+        "server_name": "نام دامنه ای که آرگو تانل روی آن ست شده",
+        "insecure": true,
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/AapaUQjIakmr486t8tMyAjuG",
+        "headers": {
+          "Host": "نام دامنه ای که آرگو تانل روی آن ست شده"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "P2053",
+      "server": "discord.com",
+      "server_port": 2053,
+      "uuid": "یوزر آی دی را جایگزین کنید",
+      "tls": {
+        "enabled": true,
+        "server_name": "نام دامنه ای که آرگو تانل روی آن ست شده",
+        "insecure": true,
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/AapaUQjIakmr486t8tMyAjuG",
+        "headers": {
+          "Host": "نام دامنه ای که آرگو تانل روی آن ست شده"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "P2083",
+      "server": "discord.com",
+      "server_port": 2083,
+      "uuid": "یوزر آی دی را جایگزین کنید",
+      "tls": {
+        "enabled": true,
+        "server_name": "نام دامنه ای که آرگو تانل روی آن ست شده",
+        "insecure": true,
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/AapaUQjIakmr486t8tMyAjuG",
+        "headers": {
+          "Host": "نام دامنه ای که آرگو تانل روی آن ست شده"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "P2087",
+      "server": "discord.com",
+      "server_port": 2087,
+      "uuid": "یوزر آی دی را جایگزین کنید",
+      "tls": {
+        "enabled": true,
+        "server_name": "نام دامنه ای که آرگو تانل روی آن ست شده",
+        "insecure": true,
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/AapaUQjIakmr486t8tMyAjuG",
+        "headers": {
+          "Host": "نام دامنه ای که آرگو تانل روی آن ست شده"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "P2096",
+      "server": "discord.com",
+      "server_port": 2096,
+      "uuid": "یوزر آی دی را جایگزین کنید",
+      "tls": {
+        "enabled": true,
+        "server_name": "نام دامنه ای که آرگو تانل روی آن ست شده",
+        "insecure": true,
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/AapaUQjIakmr486t8tMyAjuG",
+        "headers": {
+          "Host": "نام دامنه ای که آرگو تانل روی آن ست شده"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "k8443 § 10",
+      "server": "discord.com",
+      "server_port": 8443,
+      "uuid": "یوزر آی دی را جایگزین کنید",
+      "tls": {
+        "enabled": true,
+        "server_name": "نام دامنه ای که آرگو تانل روی آن ست شده",
+        "insecure": true,
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/AapaUQjIakmr486t8tMyAjuG",
+        "headers": {
+          "Host": "نام دامنه ای که آرگو تانل روی آن ست شده"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "direct",
+      "tag": "bypass"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "geoip": {
+      "path": "geoip.db"
+    },
+    "geosite": {
+      "path": "geosite.db"
+    },
+    "rules": [
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "inbound": "dns-in",
+        "outbound": "dns-out"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "select"
+      },
+      {
+        "network": [
+          "udp"
+        ],
+        "outbound": "block",
+        "port": [
+          443
+        ],
+        "port_range": []
+      },
+      {
+        "geosite": [
+          "category-ads-all"
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_suffix": [
+          "appcenter.ms",
+          "app-measurement.com",
+          "firebase.io",
+          "crashlytics.com",
+          "google-analytics.com"
+        ],
+        "outbound": "block"
+      },
+      {
+        "domain_suffix": ".ir",
+        "geoip": "ir",
+        "outbound": "bypass"
+      },
+      {
+        "ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ],
+        "outbound": "block",
+        "source_ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ]
+      }
+    ],
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:6756",
+      "store_selected": true,
+      "cache_file": "clash.db"
+    }
+  }
+}
