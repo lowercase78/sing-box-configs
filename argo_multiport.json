@@ -30,20 +30,15 @@
     ],
     "rules": [
       {
-        "domain": [
-          "discord.com"
-        ],
+        "domain": "discord.com",
         "server": "dns-direct"
       },
       {
-        "disable_cache": true,
-        "geosite": [
-          "category-ads-all"
-        ],
-        "server": "dns-block"
+        "geosite": "category-ads-all",
+        "server": "dns-block",
+        "disable_cache": true
       },
       {
-        "disable_cache": true,
         "domain_suffix": [
           "appcenter.ms",
           "app-measurement.com",
@@ -51,7 +46,8 @@
           "crashlytics.com",
           "google-analytics.com"
         ],
-        "server": "dns-block"
+        "server": "dns-block",
+        "disable_cache": true
       },
       {
         "domain_suffix": ".ir",
@@ -113,7 +109,7 @@
         "P2083",
         "P2087",
         "P2096",
-        "k8443"
+        "P8443"
       ],
       "url": "https://detectportal.firefox.com/success.txt",
       "interval": "5m0s"
@@ -250,7 +246,7 @@
     },
     {
       "type": "vless",
-      "tag": "k8443 § 10",
+      "tag": "P8443",
       "server": "discord.com",
       "server_port": 8443,
       "uuid": "یوزر آی دی را جایگزین کنید",
@@ -316,19 +312,12 @@
         "outbound": "select"
       },
       {
-        "network": [
-          "udp"
-        ],
-        "outbound": "block",
-        "port": [
-          443
-        ],
-        "port_range": []
+        "network": "udp",
+        "port": 443,
+        "outbound": "block"
       },
       {
-        "geosite": [
-          "category-ads-all"
-        ],
+        "geosite": "category-ads-all",
         "outbound": "block"
       },
       {
@@ -347,15 +336,15 @@
         "outbound": "bypass"
       },
       {
+        "source_ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ],
         "ip_cidr": [
           "224.0.0.0/3",
           "ff00::/8"
         ],
-        "outbound": "block",
-        "source_ip_cidr": [
-          "224.0.0.0/3",
-          "ff00::/8"
-        ]
+        "outbound": "block"
       }
     ],
     "auto_detect_interface": true,
@@ -364,8 +353,7 @@
   "experimental": {
     "clash_api": {
       "external_controller": "127.0.0.1:6756",
-      "store_selected": true,
-      "cache_file": "clash.db"
+      "store_selected": true
     }
   }
 }
